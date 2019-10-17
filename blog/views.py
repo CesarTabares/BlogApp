@@ -30,3 +30,20 @@ def post_new(request):
         form=PostForm()
         stuff_for_frontent={'form':form}
         return render(request, 'blog/post_edit.html', stuff_for_frontent)
+
+def post_edit (request, pk):
+    post= get_object_or_404(Post,pk=pk)
+    if request.method=='POST':
+        form=PostForm(request.POST) # aca Qazi tenia , instance=post , pero no lo vi necesario, este es ncesario en el edit
+        #Instance , esta asignando un form ya existente llamad post, para que traiga los datos ya guardados, y no
+        #un formulario nuevo
+        if form.is_valid():
+            post=form.save(commit=False)
+            post.author=request.user
+            post.published_date=timezone.now()
+            post.save()
+            return redirect('post_detail' , pk=post.pk)
+    else:
+        form=PostForm(instance=post)
+        stuff_for_frontent={'form':form}
+        return render(request, 'blog/post_edit.html', stuff_for_frontent)

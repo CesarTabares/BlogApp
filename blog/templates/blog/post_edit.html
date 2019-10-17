@@ -1,6 +1,7 @@
 {% extends 'blog/base.html' %}
 {% block content %}
   <h1>New Post</h1>
+    
     <form class="post-form-blog" action="" method="post">
       {%csrf_token%}
       {{form.as_p}} <!-- si no se pone as_p , no va a generar cada input como en una <p> -->
