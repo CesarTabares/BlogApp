@@ -22,7 +22,7 @@ def post_new(request):
             post=form.save(commit=False) #el form es como guardar un registro nuevo, es decir convierte este registro en un objeto nuevo
             print(post)
             post.author= request.user
-            post.published_date=timezone.now()
+            #post.published_date=timezone.now()
             post.save()
             return redirect ('post_detail', pk=post.pk)
     else:
@@ -40,10 +40,21 @@ def post_edit (request, pk):
         if form.is_valid():
             post=form.save(commit=False)
             post.author=request.user
-            post.published_date=timezone.now()
+            #post.published_date=timezone.now()
+            post.published_date=None
             post.save()
             return redirect('post_detail' , pk=post.pk)
     else:
         form=PostForm(instance=post)
         stuff_for_frontent={'form':form}
         return render(request, 'blog/post_edit.html', stuff_for_frontent)
+
+def post_draft_list(request):
+    posts=Post.objects.filter(published_date__isnull=True).order_by('-created_date')
+    stuff_for_frontent={'posts': posts}
+    return render(request, 'blog/post_draft_list.html' , stuff_for_frontent)
+
+def post_publish(reques,pk):
+    post=get_object_or_404(Post,pk=pk)
+    post.published()
+    return redirect ('post_detail', pk=pk)
