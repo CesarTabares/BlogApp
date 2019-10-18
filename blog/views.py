@@ -34,7 +34,7 @@ def post_new(request):
 def post_edit (request, pk):
     post= get_object_or_404(Post,pk=pk)
     if request.method=='POST':
-        form=PostForm(request.POST) # aca Qazi tenia , instance=post , pero no lo vi necesario, este es ncesario en el edit
+        form=PostForm(request.POST, instance=post) # instance es necesario aca, pq si no se pone el toma cuando se le de guardar al post editado, crea uno nuevo
         #Instance , esta asignando un form ya existente llamad post, para que traiga los datos ya guardados, y no
         #un formulario nuevo
         if form.is_valid():
