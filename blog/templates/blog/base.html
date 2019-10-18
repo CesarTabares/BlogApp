@@ -8,14 +8,15 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
     <link rel="stylesheet" href="{% static 'css/blog.css' %}" type='text/css'>
-    <title>CT Blog</title>
+    <title>{%block title %}{%endblock%}</title>
   </head>
   <body>
     <div class="page-header">
       {% if user.is_authenticated %}
         <a href="{% url 'post_draft_list' %}" class="top-menu"><i class="fab fa-firstdraft fa-2x"></i></a>
         <a href="{% url 'post_new' %}" class="top-menu"><i class="fas fa-plus fa-2x"></i></a>
-
+      {%else%}
+      <a href="{% url 'login' %}" class="top-menu"><i class="fas fa-sign-in-alt fa-2x"></i></a>
       {%endif%}
         <h1><a href="{% url 'post_list' %}">5Byte Blog!</a></h1>
     </div>
