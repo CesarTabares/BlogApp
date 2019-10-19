@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 # Create your views here.
 
 
@@ -62,3 +62,17 @@ def post_publish(reques,pk):
     post=get_object_or_404(Post,pk=pk)
     post.published()
     return redirect ('post_detail', pk=pk)
+
+def add_comment_to_post(request,pk):
+    post=get_object_or_404(Post,pk=pk)
+    if request.method=='POST':
+        form=CommentForm(request.POST)
+        if form.is_valid():
+            comment=form.save(commit=False) # we don't want to commit this to the database , WTF ????
+            comment.author=request.user
+            comment.post=post
+            comment.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form=CommentForm()
+        return render(request, 'blog/add_comment_to_post.html',{'form':form})
