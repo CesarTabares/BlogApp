@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/logout/', view=auth_views.LogoutView.as_view(), name='logout'), # este ultimo parametro indica que cuando se
     path('',include('blog.urls')),
+    #realice el logout, se redirija a la siguiente pagina, q en este caso sera '/'
 ]
