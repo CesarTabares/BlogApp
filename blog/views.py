@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import login
 from django.utils import timezone
 from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, UserForm
 # Create your views here.
 
 
@@ -93,4 +95,17 @@ def comment_approve(request,pk):
 def post_delete(request,pk):
     post=get_object_or_404(Post,pk=pk)
     post.delete()
-    return redirect('/', pk=post.pk)
+    return redirect('/') , #se hizo hardcode, pq si se pone redirect ('post_list') , esta url debe recibir una pk, pero como ya eliminamos el posts
+    #no es posible obtener la pk
+
+
+def signup(request):
+    if request.method=='POST':
+        form=UserForm(request.POST)
+        if form.is_valid():
+            new_user=User.objects.create_user(**form.cleaned_data)
+            login(request, new_user)
+            return redirect('/')
+    else:
+        form=UserForm()
+    return render(request, 'registration/signup.html', {'form': form})

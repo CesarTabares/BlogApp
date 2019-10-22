@@ -1,5 +1,10 @@
 from django import forms
+from django.contrib.auth.models import User
 from .models import Post, Comment
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
+
 
 
 # se genera este archivo "forms.py" para indicarle a Django que genere un formulario , con ciertos campos que ya fueron creados en models.py
@@ -13,3 +18,12 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model= Comment
         fields=('text',) #sin esta coma no hubiera funcionado
+
+class UserForm(forms.ModelForm):
+    password= forms.CharField(widget=forms.PasswordInput())
+    helper= FormHelper()
+    helper.form_method='POST'
+    helper.add_input(Submit('Sign up','Sign up', css_class='btn-primary'))
+    class Meta:
+        model=User
+        fields=('username','email','password',)
