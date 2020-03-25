@@ -1,12 +1,28 @@
-.page-header{
-  background-color: #ff9400;
-  margin-top: 0;
-  padding: 20px 20px 20px 40px;
+.header_title{
+  color:black;
 }
 
-.page-header h1 a {
-  color: #ffffff;
-  font-size: 36pt;
+body{
+  background-image: url('images/debut_light.png');
+  width: auto;
+  height: 500px;
+
+}
+
+p{
+  color:black
+}
+.page-header{
+  background-color: black;
+  margin-top: 0;
+  padding: 10px 10px 10px 55px;
+}
+
+.page-header h1 a{
+  font-size: 25px !important;
+  color: white;
+  font-style: oblique;
+  font-weight: bolder;
   text-decoration: none;
 }
 
@@ -15,12 +31,14 @@
 }
 
 h1,h2,h3,h4 {
-  font-family: 'Tangarine', 'Inconsolata' , 'Droid Sans', serif;
+  font-family: 'Raleway', 'Inconsolata' , 'Droid Sans', serif;
   font-size: 48px;
 }
 
-.date {
+.date p {
   color: #828282;
+  margin-bottom: 0px;
+  margin-top: 10px;
 }
 
 .post{
@@ -46,10 +64,14 @@ h1,h2,h3,h4 {
 }
 
 .top-menu, .top-menu:hover {
-  color:#ffffff;
+  font-size: 25px !important;
+  color: white;
+  font-style: oblique;
+  font-weight: bolder;
+  text-decoration: none;
   float: right;
-  font-size:26pt;
   margin-right:20px;
+  padding-top: 18px;
 }
 
 .comment{

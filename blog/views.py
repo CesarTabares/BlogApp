@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.utils import timezone
@@ -28,6 +29,7 @@ def post_new(request):
             post.author= request.user
             #post.published_date=timezone.now()
             post.save()
+            print ('cesar')
             return redirect ('post_detail', pk=post.pk)
     else:
         #print(request.POST)
@@ -91,11 +93,12 @@ def comment_approve(request,pk):
     comment.approve()
     return redirect('post_detail', pk=comment.post.pk)
 
-@login_required
+@staff_member_required
 def post_delete(request,pk):
+    
     post=get_object_or_404(Post,pk=pk)
     post.delete()
-    return redirect('/') , #se hizo hardcode, pq si se pone redirect ('post_list') , esta url debe recibir una pk, pero como ya eliminamos el posts
+    return redirect('/') #se hizo hardcode, pq si se pone redirect ('post_list') , esta url debe recibir una pk, pero como ya eliminamos el posts
     #no es posible obtener la pk
 
 
